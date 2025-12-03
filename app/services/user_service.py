@@ -1,13 +1,13 @@
-from app.core.db import SessionLocal
-from app.models import User
+from sqlalchemy.orm import Session
+from app.models.user import User
+
 
 # Создание пользователя
-def user_create(email: str, password: str):
+def user_create(db: Session, email: str, password: str) -> User:
     new_user = User(email=email, password=password)
-    
-    SessionLocal.add(new_user)
-    SessionLocal.commit()
-    
-    user = SessionLocal.refresh(new_user)
-    
-    return user
+
+    db.add(new_user)
+    db.commit()
+    db.refresh(new_user)
+
+    return new_user
