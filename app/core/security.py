@@ -1,3 +1,6 @@
+# app/core/security.py
+
+import hashlib
 from passlib.context import CryptContext
 
 pwd_context = CryptContext(
@@ -5,10 +8,16 @@ pwd_context = CryptContext(
     deprecated="auto",
 )
 
-# Возвращает шифр пароля
-def hash_password(password: str) -> str:
-    return pwd_context.hash(password)
+def _sha256(password: str) -> str:
+    """Предварительное хэширование для защиты длинных паролей."""
+    return hashlib.sha256(password.encode("utf-8")).hexdigest()
 
-# Верификация пароля и шифра
+def hash_password(password: str) -> str:
+    """SHA256 → bcrypt."""
+    sha = _sha256(password)
+    return pwd_context.hash(sha)
+
 def verify_password(plain_password: str, hashed_password: str) -> bool:
-    return pwd_context.verify(plain_password, hashed_password)
+    """Верификация: SHA256 → bcrypt.verify."""
+    sha = _sha256(plain_password)
+    return pwd_context.verify(sha, hashed_password)
