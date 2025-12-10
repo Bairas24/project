@@ -17,11 +17,3 @@ def get_db() -> Generator[Session, None, None]:
         yield db
     finally:
         db.close()
-
-
-
-def get_user():
-    return {"message": "Добро пожаловать"}
-def User_login(Session):
-    email = Session.username
-    password = Session.password
