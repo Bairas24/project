@@ -17,3 +17,4 @@ def user_get(email: str, password: str, db: Session) -> User:
     user = db.query(User).where(User.email == email and User.password == password).first()
 
     return user
+    
