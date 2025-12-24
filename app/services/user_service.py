@@ -14,7 +14,5 @@ def user_create(db: Session, email: str, password: str) -> User:
 
 # Получение пользователя
 def user_get(email: str, password: str, db: Session) -> User:
-    user = db.query(User).where(User.email == email and User.password == password).first()
-
+    user = db.query(User).where(User.email == email, User.password == password).first()
     return user
-    
