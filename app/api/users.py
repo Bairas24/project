@@ -1,5 +1,5 @@
 from app.core.db import get_db
-from fastapi import APIRouter, Depends
+from fastapi import APIRouter, Depends, HTTPException
 from app.services.user_service import user_create, user_get
 from sqlalchemy.orm import Session
 
@@ -12,4 +12,9 @@ def create_user(email: str, password: str, db: Session = Depends(get_db)):
 
 @router.get("/auth")
 def get_user(email: str, password: str, db: Session = Depends(get_db)):
-    return user_get(db=db, email=email, password=password)
+    user = user_get(db=db, email=email, password=password)
+
+    if not user:
+        raise HTTPException(status_code=404, detail="User not found")
+    
+    return user
