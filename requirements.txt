@@ -5,3 +5,4 @@ alembic
 psycopg2-binary
 pydantic_settings
 passlib[bcrypt]
+bcrypt==4.0.1
