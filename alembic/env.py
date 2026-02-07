@@ -9,6 +9,7 @@ from app.core.db import Base
 from app.models.user import User
 from app.models.car import Cars
 from app.models.part import Part
+from app.models.car_part import CarPart
 
 # this is the Alembic Config object, which provides
 # access to the values within the .ini file in use.
