@@ -16,3 +16,5 @@ def get_parts(db: Session, brand: str, model: str):
     cars_parts = db.query(CarPart).where(CarPart.car_id.in_(car_id_list)).all()
 
     return cars_parts 
+
+Нужно вернуть теперь список запчастей
